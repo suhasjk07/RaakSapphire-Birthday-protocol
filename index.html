@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a0033">
     <title>RaakSapphire Birthday Protocol</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -10,6 +14,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
         }
 
         :root {
@@ -216,11 +227,31 @@
             margin-top: 20px;
         }
 
+        @media (max-width: 768px) {
+            .calendar-grid {
+                gap: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-grid {
+                gap: 3px;
+            }
+        }
+
         .calendar-day-header {
             text-align: center;
             font-weight: 600;
             color: var(--neon-magenta);
             padding: 10px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day-header {
+                padding: 5px 2px;
+                font-size: 11px;
+            }
         }
 
         .calendar-day {
@@ -234,6 +265,16 @@
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
+            font-size: 14px;
+            min-height: 40px;
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day {
+                font-size: 12px;
+                min-height: 35px;
+                border-radius: 6px;
+            }
         }
 
         .calendar-day:hover {
@@ -316,6 +357,26 @@
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .birthday-feed {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .birthday-feed {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .birthday-feed {
+                gap: 15px;
+            }
         }
 
         .birthday-card {
@@ -415,6 +476,9 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal.active {
@@ -427,11 +491,41 @@
             border-radius: 20px;
             padding: 40px;
             max-width: 600px;
-            width: 90%;
+            width: 100%;
             max-height: 80vh;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             position: relative;
             animation: modalSlideIn 0.4s ease-out;
+            margin: auto;
+        }
+
+        @media (max-width: 768px) {
+            .modal {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 30px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 30px 20px;
+                max-height: 85vh;
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal {
+                padding: 5px;
+                padding-top: 20px;
+            }
+
+            .modal-content {
+                padding: 25px 15px;
+                max-height: 90vh;
+                border-radius: 12px;
+            }
         }
 
         @keyframes modalSlideIn {
@@ -495,6 +589,14 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 16px;
             transition: all 0.3s;
+            min-height: 44px;
+        }
+
+        @media (max-width: 768px) {
+            .form-input, .form-textarea, select.form-input {
+                padding: 10px 14px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
         }
 
         .form-input:focus, .form-textarea:focus, select.form-input:focus {
@@ -586,6 +688,28 @@
             backdrop-filter: blur(10px);
             transform: translateX(500px);
             transition: transform 0.4s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .notification {
+                min-width: 280px;
+                max-width: calc(100% - 40px);
+                right: 20px;
+                top: 20px;
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .notification {
+                min-width: auto;
+                max-width: calc(100% - 20px);
+                right: 10px;
+                top: 10px;
+                left: 10px;
+                padding: 15px;
+                border-radius: 12px;
+            }
         }
 
         .notification.show {
@@ -741,34 +865,336 @@
             }
 
             .logo {
-                font-size: 22px;
+                font-size: 20px;
+                letter-spacing: 2px;
+                text-align: center;
+            }
+
+            .header-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .live-time {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            .admin-lock {
+                width: 35px;
+                height: 35px;
+            }
+
+            .gdrive-status {
+                padding: 8px 15px;
+            }
+
+            .gdrive-text {
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .calendar-widget {
+                padding: 20px 15px;
+            }
+
+            .calendar-title {
+                font-size: 18px;
+            }
+
+            .calendar-btn {
+                padding: 6px 12px;
+                font-size: 14px;
             }
 
             .calendar-grid {
                 gap: 5px;
             }
 
+            .calendar-day {
+                font-size: 12px;
+            }
+
+            .calendar-day-header {
+                font-size: 12px;
+                padding: 5px;
+            }
+
             .birthday-feed {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .birthday-card {
+                padding: 20px;
+            }
+
+            .birthday-photo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .birthday-name {
+                font-size: 20px;
             }
 
             .action-buttons {
                 flex-direction: column;
+                gap: 15px;
             }
 
             .action-btn {
                 min-width: 100%;
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 30px 20px;
+                max-height: 90vh;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .form-input, .form-textarea, select.form-input {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+
+            .notification {
+                min-width: 280px;
+                max-width: 90%;
+                right: 5%;
+                top: 10px;
+                padding: 15px 20px;
+            }
+
+            .notification-title {
+                font-size: 16px;
+            }
+
+            .notification-body {
+                font-size: 13px;
+            }
+
+            .gift-box-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .gift-box {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+
+            .party-title {
+                font-size: 32px;
+            }
+
+            .party-photo {
+                width: 180px;
+                height: 180px;
+            }
+
+            .party-message {
+                font-size: 18px;
+            }
+
+            .party-content {
+                padding: 20px;
+            }
+
+            .admin-panel {
+                padding: 20px;
+            }
+
+            .admin-section-title {
+                font-size: 18px;
+            }
+
+            .employee-item {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .delete-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+            .calendar-title {
+                font-size: 16px;
+            }
+
+            .calendar-nav {
+                flex-direction: column;
+                gap: 5px;
+                width: 100%;
+            }
+
+            .calendar-btn {
+                width: 100%;
+            }
+
+            .birthday-name {
+                font-size: 18px;
+            }
+
+            .birthday-date {
+                font-size: 14px;
+            }
+
+            .birthday-wishes {
+                font-size: 13px;
+                padding: 12px;
+            }
+
+            .modal-content {
+                padding: 25px 15px;
+            }
+
+            .modal-title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .party-title {
+                font-size: 24px;
+            }
+
+            .party-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .party-message {
+                font-size: 16px;
+            }
+        }
+
+        /* Landscape mode optimizations */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .modal-content {
+                max-height: 85vh;
+                padding: 20px;
+            }
+
+            .party-content {
+                padding: 15px;
+            }
+
+            .party-title {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+
+            .party-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .party-message {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .action-btn, .calendar-btn, .submit-btn, .delete-btn {
+                min-height: 44px;
+            }
+
+            .admin-lock {
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            .modal-close {
+                min-width: 40px;
+                min-height: 40px;
+            }
+
+            .form-input, .form-textarea, select.form-input {
+                min-height: 44px;
+            }
+        }
+
+        /* Tablet optimizations (portrait) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .birthday-feed {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-buttons {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                max-width: 550px;
+            }
+        }
+
+        /* Tablet optimizations (landscape) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .birthday-feed {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                padding: 30px 25px;
+            }
+        }
+
+        /* Small tablets */
+        @media (min-width: 600px) and (max-width: 768px) {
+            .logo {
+                font-size: 24px;
+            }
+
+            .calendar-title {
+                font-size: 20px;
             }
         }
 
         /* File Upload Preview */
         .image-preview {
             width: 100%;
+            max-width: 100%;
             max-height: 200px;
             object-fit: cover;
             border-radius: 10px;
             margin-top: 10px;
             border: 2px solid var(--neon-cyan);
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .image-preview {
+                max-height: 150px;
+            }
         }
 
         /* Google Drive Status */
@@ -1891,12 +2317,71 @@
             updateGDriveStatus();
             setupEventListeners();
             
+            // Mobile-specific enhancements
+            setupMobileOptimizations();
+            
             setTimeout(checkUpcomingBirthdays, 2000);
             setInterval(checkUpcomingBirthdays, 3600000);
             
             console.log('✓ Initialization complete!');
             console.log('📊 Current data:', { employees: employees.length, gifts: gifts.length });
         });
+
+        // Mobile optimizations
+        function setupMobileOptimizations() {
+            // Prevent double-tap zoom on buttons
+            const buttons = document.querySelectorAll('button, .action-btn, .calendar-btn');
+            buttons.forEach(button => {
+                button.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    this.click();
+                });
+            });
+
+            // Improve scroll performance on modals
+            const modals = document.querySelectorAll('.modal-content');
+            modals.forEach(modal => {
+                let lastScrollTop = 0;
+                modal.addEventListener('scroll', function(e) {
+                    const scrollTop = this.scrollTop;
+                    if (Math.abs(scrollTop - lastScrollTop) > 5) {
+                        lastScrollTop = scrollTop;
+                    }
+                }, { passive: true });
+            });
+
+            // Handle orientation change
+            window.addEventListener('orientationchange', function() {
+                setTimeout(() => {
+                    renderCalendar();
+                    renderBirthdayFeed();
+                }, 100);
+            });
+
+            // Prevent pull-to-refresh on iOS when modals are open
+            document.body.addEventListener('touchmove', function(e) {
+                if (document.body.classList.contains('modal-open')) {
+                    const modal = document.querySelector('.modal.active');
+                    if (modal && !modal.contains(e.target)) {
+                        e.preventDefault();
+                    }
+                }
+            }, { passive: false });
+
+            // Add touch feedback for birthday cards
+            const cards = document.querySelectorAll('.birthday-card');
+            cards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                }, { passive: true });
+                
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                }, { passive: true });
+            });
+
+            console.log('✓ Mobile optimizations applied');
+        }
     </script>
 </body>
 </html>
